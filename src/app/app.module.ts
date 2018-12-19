@@ -6,6 +6,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { LoginPage} from '../pages/login/login';
+import { ComponentsModule } from '../components/components.module';
+import { AngularFireModule } from "angularfire2";
+import { FIREBASE_CONFIG } from "./app.firebase.config";
+import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -14,7 +18,10 @@ import { LoginPage} from '../pages/login/login';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    ComponentsModule,
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,4 +1,4 @@
-import { User } from "../../models/user/user";
+import { User } from "../../models/user/user.interface";
 
 const userList: User[] = [
     {firstName : '0', lastName:'Tes',email:'0@tes.com',avatar:'asset/imgs/avatar.jpg'},
