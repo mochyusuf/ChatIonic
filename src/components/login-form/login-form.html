@@ -1,16 +1,36 @@
-<ion-card>
-  <ion-card-content>
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input [(ngModel)]="account.email" type="email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input [(ngModel)]="account.password"  type="password"></ion-input>
-    </ion-item>
-  </ion-card-content>
-  <ion-row class="login-form__buttons">
-    <button ion-button (click)="OpenPage('RegisterPage')" color="secondary">Register</button>
-    <button ion-button (click)="login()" color="primary">Login</button>
-  </ion-row>
-</ion-card>
+<form #loginForm="ngForm" novalidate [formGroup]="formgroup" >
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input [(ngModel)]="account.email" type="email" name="email" formControlName="email" required></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="formgroup.controls['email'].invalid && ((formgroup.controls['email'].dirty || formgroup.controls['email'].touched) || check == true)">
+        <p class="input-error" *ngIf="formgroup.controls['email'].hasError('required')"> 
+            Email Required
+        </p>
+        <p class="input-error" *ngIf="formgroup.controls['email'].hasError('email') ">
+            Email Not Valid
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input [(ngModel)]="account.password"  type="password" name="password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="formgroup.controls['password'].invalid && ((formgroup.controls['password'].dirty || formgroup.controls['password'].touched) || check == true)">
+        <p class="input-error" *ngIf="formgroup.controls['password'].hasError('required') ">
+            Password Required
+        </p>
+        <p class="input-error" *ngIf="formgroup.controls['password'].hasError('minlength') ">
+            Password Minimal 6 Character
+        </p>
+      </ion-item>
+    </ion-card-content>
+    <ion-row class="login-form__buttons">
+      <button ion-button (click)="OpenPage('RegisterPage')" color="secondary">Register</button>
+      <button ion-button (click)="login()" color="primary">Login</button>
+    </ion-row>
+  </ion-card>
+</form>
