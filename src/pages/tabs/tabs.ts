@@ -22,7 +22,7 @@ export class TabsPage {
   constructor(){
     this.tab1Root= "InboxPage";
     this.tab2Root= "ChannelPage";
-    this.tab3Root= "EditProfilePage";
+    this.tab3Root= "ProfilePage";
   }
 
 }

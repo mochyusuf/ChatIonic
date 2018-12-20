@@ -1,9 +1,10 @@
-import { Component, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { User } from "../../models/user/user.interface";
 import { Subscription } from 'rxjs';
 import { User as UserFire } from 'firebase';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DataProvider } from '../../providers/data/data';
+import { NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the EditProfileFormComponent component.
@@ -19,11 +20,13 @@ export class EditProfileFormComponent {
 
   private authenticatedUser$ : Subscription;
   private authenticatedUser:UserFire
-  user = {} as User;
+  public user = {} as User;
 
   @Output() saveUserResult : EventEmitter<Boolean>;
 
-  constructor(private auth : AuthProvider, private data : DataProvider) {
+  @Input() profile : User;
+
+  constructor(private auth : AuthProvider, private data : DataProvider, private navParam : NavParams) {
     this.saveUserResult = new EventEmitter<Boolean>();
     this.authenticatedUser$ = this.auth.getAuthenticateUser().subscribe((user:UserFire)=>{
       this.authenticatedUser = user;
@@ -37,6 +40,14 @@ export class EditProfileFormComponent {
       const result = await this.data.saveProfile(this.authenticatedUser,this.user);
       console.log(result);
       this.saveUserResult.emit(result);
+    }
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    if (!this.profile) {
+      this.profile = {} as User;
     }
   }
 

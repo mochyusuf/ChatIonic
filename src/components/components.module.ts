@@ -3,12 +3,16 @@ import { IonicModule } from "ionic-angular";
 import { LoginFormComponent } from './login-form/login-form';
 import { RegisterFormComponent } from './register-form/register-form';
 import { EditProfileFormComponent } from './edit-profile-form/edit-profile-form';
+import { ProfileViewComponent } from './profile-view/profile-view';
+import { SearchFormComponent } from './search-form/search-form';
 
 @NgModule({
     declarations:[
         LoginFormComponent,
     RegisterFormComponent,
     EditProfileFormComponent,
+    ProfileViewComponent,
+    SearchFormComponent,
     ],
     imports:[
         IonicModule,
@@ -17,6 +21,8 @@ import { EditProfileFormComponent } from './edit-profile-form/edit-profile-form'
         LoginFormComponent,
     RegisterFormComponent,
     EditProfileFormComponent,
+    ProfileViewComponent,
+    SearchFormComponent,
     ],
 })
 export class ComponentsModule{

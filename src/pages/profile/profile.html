@@ -8,11 +8,14 @@
 
   <ion-navbar>
     <ion-title>Profile</ion-title>
+    <ion-buttons end>
+      <button (click)="OpenEditProfile()">Edit</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <profile-view (existingProfile)="getExistingUser($event)"></profile-view>
 </ion-content>

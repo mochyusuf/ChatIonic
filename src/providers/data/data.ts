@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { User as userFire } from 'firebase';
 import { User } from '../../models/user/user.interface';
 
@@ -15,8 +15,18 @@ export class DataProvider {
 
   userObject: AngularFireObject<User>;
 
+  userList : AngularFireList<User>;
+
   constructor(private database:AngularFireDatabase) {
     console.log('Hello DataProvider Provider');
+  }
+
+  searchUser(firstName : string){
+    const query = this.database.list('/user',ref =>     
+      ref.orderByChild('firstName').equalTo(firstName)
+    )
+    console.log(query.valueChanges());
+    return query.valueChanges();
   }
 
   getUser(user : userFire){

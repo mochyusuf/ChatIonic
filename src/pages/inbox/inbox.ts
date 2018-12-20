@@ -26,4 +26,8 @@ export class InboxPage {
     console.log(this.messageList);
   }
 
+  OpenSearch(){
+    this.navCtrl.push('SearchPage');
+  }
+
 }
