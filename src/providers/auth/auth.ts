@@ -45,4 +45,9 @@ export class AuthProvider {
       }
     }
   }
+
+  Logout(){
+    console.log(this.auth.auth);
+    this.auth.auth.signOut();
+  }
 }

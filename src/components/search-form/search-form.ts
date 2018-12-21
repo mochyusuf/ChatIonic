@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { DataProvider } from '../../providers/data/data';
 import { User } from '../../models/user/user.interface';
 import { Observable } from 'rxjs'; 
@@ -20,10 +20,17 @@ export class SearchFormComponent {
 
   query: string;
 
+  @Output() selectedUser : EventEmitter<User>;
+
   userList : any[];
 
   constructor(private data : DataProvider) {
     console.log('Hello SearchFormComponent Component');
+    this.selectedUser = new EventEmitter<User>();
+  }
+
+  selectUser(user : User){
+    this.selectedUser.emit(user);
   }
 
   searchUser(query : string){

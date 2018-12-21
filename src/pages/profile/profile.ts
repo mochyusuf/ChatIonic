@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { User } from 'firebase';
+import { AuthProvider } from '../../providers/auth/auth';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ProfilePage page.
@@ -18,7 +20,7 @@ export class ProfilePage {
 
   existingProfile = {} as User;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private appCtrl : App , private auth : AuthProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   OpenEditProfile(){
@@ -37,4 +39,10 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
 
+  Logout(){
+    // this.auth.Logout();
+    // this.navCtrl.setRoot(LoginPage);
+    // this.navCtrl.popToRoot();
+    this.appCtrl.getRootNav().setRoot(LoginPage);
+  }
 }

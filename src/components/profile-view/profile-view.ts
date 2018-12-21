@@ -37,6 +37,13 @@ export class ProfileViewComponent {
 
   
   ngOnInit(): void {
+    this.loader.present();
+
+    // this.data.getAuthenticatedUser().subscribe(profile =>{
+    //   this.userProfile = profile;
+    //   this.existingProfile.emit(this.userProfile);
+    //   this.loader.dismiss();
+    // })
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.auth.getAuthenticateUser().subscribe((user : UserFire) => {

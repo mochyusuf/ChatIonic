@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
-import { User as userFire } from 'firebase';
+import { User as userFire, auth } from 'firebase';
 import { User } from '../../models/user/user.interface';
+import { AuthProvider } from '../auth/auth';
+import 'rxjs/add/operator/mergeMap';
+import { Observable } from 'rxjs/Observable';
 
 /*
   Generated class for the DataProvider provider.
@@ -17,7 +20,7 @@ export class DataProvider {
 
   userList : AngularFireList<User>;
 
-  constructor(private database:AngularFireDatabase) {
+  constructor(private auth: AuthProvider, private database:AngularFireDatabase) {
     console.log('Hello DataProvider Provider');
   }
 
@@ -28,6 +31,15 @@ export class DataProvider {
     console.log(query.valueChanges());
     return query.valueChanges();
   }
+
+  // getAuthenticatedUser(){
+  //   let result = this.auth.getAuthenticateUser()
+  //   .map(user => 
+  //     console.log(user.uid),
+  //     this.database.object('/user/'+user.uid).valueChanges());
+  //   console.log(result);
+  //   return result;
+  // }
 
   getUser(user : userFire){
     this.userObject = this.database.object('/user/'+user.uid);

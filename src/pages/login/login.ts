@@ -11,7 +11,7 @@ import { DataProvider } from '../../providers/data/data';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
