@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { ChannelProvider } from '../../providers/channel/channel';
+import { Channel } from '../../models/channel/channel.interface';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireList, AngularFireObject } from 'angularfire2/database';
 
 /**
  * Generated class for the ChannelPage page.
@@ -15,11 +19,46 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ChannelPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  channelList : Observable<Channel[]>;
+  constructor(private channel: ChannelProvider, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChannelPage');
+    this.getChannel();
+  }
+
+  showChannel(){
+    this.alertCtrl.create({
+      title:'Channel Name',
+      inputs:[{
+        name:'channelName'
+      }],
+      buttons:[
+        {
+          text:'Cancel',
+          role:'cancel'
+        },
+        {
+          text:'Add',
+          handler:data=>{
+            this.channel.addChannel(data.channelName);
+          }
+        }
+      ]
+    }).present();
+  }
+
+  selectChannel(channel : Channel){
+    console.log(channel);
+    this.navCtrl.push('ChannelChatPage',{
+      channel : channel
+    });
+  }
+
+  getChannel(){
+    this.channelList = this.channel.getChannelListRef().valueChanges();
+    console.log(this.channelList);
   }
 
 }

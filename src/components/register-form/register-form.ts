@@ -28,6 +28,8 @@ export class RegisterFormComponent {
   async Register(){
     try{
       const result = await this.auth.createUserWithEmailAndPassword(this.account);
+      console.log("Register");
+      console.log(result);
       this.registerStatus.emit(result);
     }catch(e){
       console.error(e);

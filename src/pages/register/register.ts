@@ -24,21 +24,23 @@ export class RegisterPage {
   }
 
   register(event: LoginResponse){
-    console.log(event);
-    if (!event.error) {
-      let mess = "Account Create" + event.result.user.email;
-      this.toastCtrl.create({
-        message:mess,
-        duration:3000
-      }).present();
-      console.log(mess)
-    } else {
-      let mess = "Account Create" + event.error;
-      this.toastCtrl.create({
-        message:mess,
-        duration:3000
-      }).present();
-      console.log(mess)
+    if (event != undefined && event != null) {
+      console.log(event);
+      if (!event.error) {
+        let mess = "Account Create" + event.result.user.email;
+        this.toastCtrl.create({
+          message:mess,
+          duration:3000
+        }).present();
+        console.log(mess)
+      } else {
+        let mess = "Account Create" + event.error;
+        this.toastCtrl.create({
+          message:mess,
+          duration:3000
+        }).present();
+        console.log(mess)
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AuthProvider } from '../providers/auth/auth';
 import { DataProvider } from '../providers/data/data';
 import { FormsModule } from '@angular/forms';
+import { ChannelProvider } from '../providers/channel/channel';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FormsModule } from '@angular/forms';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    DataProvider
+    DataProvider,
+    ChannelProvider
   ]
 })
 export class AppModule {}
