@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Channel } from '../../models/channel/channel.interface';
 import { ChannelMessage } from '../../models/channel/channel-message.interface';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 /*
   Generated class for the ChannelProvider provider.
@@ -21,8 +23,37 @@ export class ChannelProvider {
     this.database.list('/channel-name/').push({name:channelName});
   }
 
-  getChannelListRef() : AngularFireList<Channel>{
-    return this.database.list('channel-name');
+  getChannelListRef() : Observable<Channel[]>{
+
+    console.log("Keys");
+
+    // this.database.list('channel-name').snapshotChanges().subscribe(list=> {
+    //   console.log(list.values);
+    // });
+    
+    const result = this.database.list('channel-name').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const value = a.payload.val();
+        const key = a.key;
+        // console.log(key);
+        let temp: Channel = {} as any;
+
+        // @ts-ignore
+        temp.name = value.name.toString()
+        temp.$key = key
+        return temp;
+      }))
+    );
+
+    result.subscribe(list=> {
+      console.log(list);
+    });
+
+    // console.log(result);
+
+    return result;
+    // return this.database.list('channel-name');
+    
   }
 
   getChannelChatRef(channelKey : string) : AngularFireList<ChannelMessage>{

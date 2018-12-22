@@ -42,7 +42,7 @@ export class LoginPage {
     } else {
       this.toastCtrl.create({
         message:event.error.message,
-        duration:1500
+        duration:500
       }).present();
     }
   }

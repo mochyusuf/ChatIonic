@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, App } from 'ionic-angular';
 import { LoginResponse } from '../../models/login/login.interface';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the RegisterPage page.
@@ -16,7 +17,7 @@ import { LoginResponse } from '../../models/login/login.interface';
 })
 export class RegisterPage {
 
-  constructor(private toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private appCtrl : App ,private toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -24,7 +25,7 @@ export class RegisterPage {
   }
 
   register(event: LoginResponse){
-    if (event != undefined && event != null) {
+    // if (event != undefined && event != null) {
       console.log(event);
       if (!event.error) {
         let mess = "Account Create" + event.result.user.email;
@@ -32,15 +33,16 @@ export class RegisterPage {
           message:mess,
           duration:3000
         }).present();
+        this.appCtrl.getRootNav().setRoot(LoginPage);
         console.log(mess)
       } else {
-        let mess = "Account Create" + event.error;
+        let mess = "" + event.error;
         this.toastCtrl.create({
           message:mess,
           duration:3000
         }).present();
         console.log(mess)
       }
-    }
+    // }
   }
 }

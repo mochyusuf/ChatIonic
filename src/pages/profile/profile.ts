@@ -40,7 +40,7 @@ export class ProfilePage {
   }
 
   Logout(){
-    // this.auth.Logout();
+    this.auth.Logout();
     // this.navCtrl.setRoot(LoginPage);
     // this.navCtrl.popToRoot();
     this.appCtrl.getRootNav().setRoot(LoginPage);

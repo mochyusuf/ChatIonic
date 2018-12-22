@@ -38,7 +38,6 @@ export class ChannelChatPage {
       content
     }
 
-
     console.log("Key Channel");
     console.log(this.channel.$key);
 

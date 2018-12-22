@@ -4,6 +4,7 @@ import { ToastController } from 'ionic-angular';
 import {Account} from "../../models/account/account.interface";
 import { LoginResponse } from '../../models/login/login.interface';
 import { AuthProvider } from '../../providers/auth/auth';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 /**
  * Generated class for the RegisterFormComponent component.
@@ -18,22 +19,40 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class RegisterFormComponent {
 
   account = {} as Account;
+  formgroup : FormGroup;
+  check : boolean;
 
-  @Output() registerStatus: EventEmitter<LoginResponse>;
+  @Output() registerStatus: EventEmitter<LoginResponse> = new EventEmitter<LoginResponse>();
   
-  constructor(private auth: AuthProvider, private toastCtrl : ToastController, private fireAuth: AngularFireAuth) {
+  constructor(private auth: AuthProvider, private toastCtrl : ToastController, private fireAuth: AngularFireAuth, public formBuilder : FormBuilder) {
     console.log('Hello RegisterFormComponent Component');
+    this.check = false;
+    this.formgroup = this.formBuilder.group({
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.email,
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+      ])),
+    })
   }
 
   async Register(){
-    try{
-      const result = await this.auth.createUserWithEmailAndPassword(this.account);
-      console.log("Register");
-      console.log(result);
-      this.registerStatus.emit(result);
-    }catch(e){
-      console.error(e);
-      this.registerStatus.emit(e);
+    
+    this.check = true;
+    
+    if (this.formgroup.valid) {
+      try{
+        const result = await this.auth.createUserWithEmailAndPassword(this.account);
+        console.log("Register");
+        console.log(result);
+        this.registerStatus.emit(result);
+      }catch(e){
+        console.error(e);
+        this.registerStatus.emit(e);
+      }
     }
   }
 }

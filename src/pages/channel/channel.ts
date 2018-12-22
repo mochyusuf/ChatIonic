@@ -57,8 +57,7 @@ export class ChannelPage {
   }
 
   getChannel(){
-    this.channelList = this.channel.getChannelListRef().valueChanges();
-    console.log(this.channelList);
+    this.channelList = this.channel.getChannelListRef();
   }
 
 }
